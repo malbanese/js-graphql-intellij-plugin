@@ -62,6 +62,13 @@ public class GraphQLSettings implements PersistentStateComponent<GraphQLSettings
         myState.enableIntrospectionDefaultValues = enableIntrospectionDefaultValues;
     }
 
+    public boolean isTreatingEmptyErrorsAsSuccessful() {
+        return myState.isTreatingEmptyErrorsAsSuccessful;
+    }
+
+    public void setTreatEmptyErrorsAsSuccessful(boolean treatEmptyErrorsAsSuccessful) {
+        myState.isTreatingEmptyErrorsAsSuccessful = treatEmptyErrorsAsSuccessful;
+    }
 
 
     /**
@@ -73,6 +80,7 @@ public class GraphQLSettings implements PersistentStateComponent<GraphQLSettings
         public String introspectionQuery = "";
         public boolean enableIntrospectionDefaultValues = true;
         public boolean enableRelayModernFrameworkSupport;
+        public boolean isTreatingEmptyErrorsAsSuccessful;
     }
 }
 

@@ -30,6 +30,8 @@ public class GraphQLProjectSettingsForm {
     private JCheckBox enableIntrospectionDefaultValues;
     JPanel relayModernPanel;
     JCheckBox enableRelayModernCheckBox;
+    private JPanel additionalSettingsPanel;
+    private JCheckBox treatEmptyErrorsAsSuccessfulCheckBox;
 
     private GraphQLSettings mySettings;
 
@@ -38,6 +40,7 @@ public class GraphQLProjectSettingsForm {
         this.mySettings = mySettings;
         introspectionPanel.setBorder(IdeBorderFactory.createTitledBorder("GraphQL Introspection"));
         relayModernPanel.setBorder(IdeBorderFactory.createTitledBorder("GraphQL Frameworks"));
+        additionalSettingsPanel.setBorder(IdeBorderFactory.createTitledBorder("Additional GraphQL Settings"));
 
         return this;
     }
@@ -62,12 +65,14 @@ public class GraphQLProjectSettingsForm {
         mySettings.setIntrospectionQuery(introspectionQueryTextField.getText());
         mySettings.setEnableRelayModernFrameworkSupport(enableRelayModernCheckBox.isSelected());
         mySettings.setEnableIntrospectionDefaultValues(enableIntrospectionDefaultValues.isSelected());
+        mySettings.setTreatEmptyErrorsAsSuccessful(treatEmptyErrorsAsSuccessfulCheckBox.isSelected());
     }
 
     void reset() {
         introspectionQueryTextField.setText(mySettings.getIntrospectionQuery());
         enableIntrospectionDefaultValues.setSelected(mySettings.isEnableIntrospectionDefaultValues());
         enableRelayModernCheckBox.setSelected(mySettings.isEnableRelayModernFrameworkSupport());
+        treatEmptyErrorsAsSuccessfulCheckBox.setSelected(mySettings.isTreatingEmptyErrorsAsSuccessful());
     }
 
     boolean isModified() {
@@ -78,6 +83,9 @@ public class GraphQLProjectSettingsForm {
             return true;
         }
         if (mySettings.isEnableIntrospectionDefaultValues() != enableIntrospectionDefaultValues.isSelected()) {
+            return true;
+        }
+        if (mySettings.isTreatingEmptyErrorsAsSuccessful() != treatEmptyErrorsAsSuccessfulCheckBox.isSelected()) {
             return true;
         }
         return false;
